@@ -129,7 +129,9 @@ typedef struct
 #endif
 EOF
 
-CO5300=$(find "$SDK/customer" -name co5300.c 2>/dev/null | head -1)
+# 自包含: 优先取比赛工程内置的厂商驱动源码, 找不到才退到外部 SDK
+CO5300="$PROJ/drivers/vendor_lcd/co5300.c"
+[ -f "$CO5300" ] || CO5300=$(find "$SDK/customer" -name co5300.c 2>/dev/null | head -1)
 [ -n "$CO5300" ] || { echo "[FAIL] 找不到 co5300.c"; exit 1; }
 cp -f "$CO5300" "$OUT/co5300.c"
 
