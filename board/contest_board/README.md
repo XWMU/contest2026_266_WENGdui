@@ -32,7 +32,11 @@ openvela_thermo/
 ├── boards/arm/sf32lb52/sf32lb52-lcd/ # 板级层（含厂家 LCD/触摸/PID/NVS 静态库集成）
 ├── arch(arm/src/sf32lb52)/           # 芯片层（Cortex-M33 启动/时钟/串口/GPIO/ADC/PWM）
 ├── drivers/                           # 底层驱动补充
-├── sdk_port/                          # 厂家 HAL 移植胶水（co5300/ft6146/pid/nvs/fan…）
+│   ├── vendor_lcd/co5300.c            # CO5300 LCD 屏控芯片驱动源码（构建自包含）
+│   └── vendor_touch/ft6146.c/.h       # FT6146 触摸芯片驱动源码（构建自包含）
+│   ├── thermo_ctrl.c                  # 增量式 PID 温控算法
+│   └── thermo_storage.c               # NVS 参数配置存储
+├── sdk_port/                          # 厂家 HAL 移植胶水
 │   └── build_vendor_lcd_lib.sh        # 生成 libsf32lb52_vendorlcd.a
 ├── integrate.sh                       # 一键集成进 openvela 源码树（复制+注册+编库）
 ├── build_openvela.sh                  # 一键构建（distclean→integrate→configure→make→objcopy）
